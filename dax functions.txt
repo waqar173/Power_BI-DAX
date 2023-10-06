@@ -1,0 +1,151 @@
+SUM
+COUNTROWS
+DISTINTCOUNT
+QUICK MEASURE
+ITERATIVE FUNCTION
+DATE FUNCTION
+if
+find
+logical stat
+calculate
+divide
+window button+dot button pop up emjo you can select
+min/max/average
+divide
+concatnate --> &sybmol and add whatever you want to add between two column
+
+difference= directcolumn- particular column
+
+mathetmatics operation
+
+by using variables
+
+sales price % difference from manufacturing price=
+var _baseline_value=sum('financials'[manufacturing price])
+var _value_to_compare=sum('financials'[sale price])
+return
+if(not isblank(_value_to_comapre),
+divide(_value_to_comapre - _baseline_value, _baseline_value))
+
+sales per segemnet=summarize(financials, finacials[segement],"sales happened", sum(financial[sales])]
+// this will create new table and then select financial table and group by segement like if skmh occur ten time it will combine them 1 time and sales happenned column name and if skmh occur ten time and its sales row also occur ten time so it will summarize it and occur one time only
+
+
+powerbi
+
+
+FullName = Customer[FirstName] &" "& Customer[LastName]
+
+FindingMaxSalesQty = MAX(Sal[Quantity])
+
+FindingMinSalesQty = Min(Sal[Quantity])
+
+Total Sales (Year) =
+CALCULATE(SUM(Sales[Quantity]), FILTER(Sales, YEAR(Sales[SalesDate]) = 2023))
+
+
+Price Category = 
+IF(AVERAGE(Product[Price]) > 50, "High", "Low")
+
+Running Total Quantity =
+SUMX(
+    Sal,
+    Sal[Quantity]
+)
+
+
+
+
+
+
+
+------------------------------------------------------------------
+
+column----
+
+fullname= 'customer'[first name]&" "& 'customer'[last name]
+
+
+using if condition
+
+age By Group = IF('Customer'[Age]>=60,"In 60's", IF('Customer'[Age]>=50,"In 50's", IF('Customer'[Age]>=40,"In 40's", "less than 40")))
+
+
+New Format Date = FORMAT('Date'[Date],"MMM-YYYY")
+// AS if we go with MM it will print 02,03 month format otherwise if we want to print name of month go with mmm IT WILL print Apr if want full name print then go with mmmm then it will print april
+
+Temp Connection = RELATED('Sales Territory'[Sales Territory Region])
+//by this in if tables have connection i can access all other attributes in other table by related function and by using & sign i can add more related function
+
+
+
+related function only works with one to many relationship
+
+many side we can use related and on one side realtedtable
+
+simply you fetching data
+
+
+
+Count Sale = COUNTROWS(RELATEDTABLE('Internet Sales'))
+//if i dont use countrows it will give me error as multiple columns cannont be converted to be a scalar value
+
+OR I CAN ALSO USE SUMX 
+
+Count Sale = SUMX(RELATEDTABLE('Internet Sales'),'Internet Sales'[Order Quantity])
+// as this will first ask for table then after comma it order quantity according to particular order
+
+//SWITCH
+Level of Sale = SWITCH(True(),'Sales Territory'[Count Sale]>=8000,"High COUNT", 'Sales Territory'[Count Sale]>=5000,"Medium",'Sales Territory'[Count Sale]>=2000,"LOW","TOO LOW")
+
+
+Last Date of Order = FORMAT(MAXX(RELATEDTABLE('Internet Sales'),'Internet Sales'[Order Date]),"DD-MMM-YYYY")
+// AS IN current table we have one relationship so relatable now in internet table we have order date lastest one so simply geetting data from that table simply use relatable and maxx iterativefunction as each customer particular iterative function return max value then by format i printed date as i like
+
+measures
+
+Customer Count = DISTINCTCOUNT(Customer[Customer Key])
+
+TOTAL SALESAMOUNT = SUM('Internet Sales'[Sales Amount])
+
+Total Cost = SUM('Internet Sales'[Product Standard Cost])
+
+Divide function handle 0 occurnce otherwise / dont consider 0 occurcnce
+
+Profit=[totalcostt]-[totalsalesamount]
+
+Profit Margin=divide(profit,totalsalesamount,"0")
+
+
+FILTER DATE=CALENDAR("2/5/2020","2/5/2022")
+
+
+Total sale for each country = CALCULATE([TOTAL SALESAMOUNT],ALL('Sales Territory'[Sales Territory Country]))
+
+
+Total sale for each country = IF(ISBLANK([TOTAL SALESAMOUNT]),BLANK(),CALCULATE([TOTAL SALESAMOUNT],ALL('Sales Territory'[Sales Territory Country])))
+
+instead of ALL WE can also use removefilters function
+
+
+
+percentage of total sale% = DIVIDE(ISBLANK([TOTAL SALESAMOUNT]),[Total sale for each country],"0")
+
+ca sale = CALCULATE([TOTAL SALESAMOUNT],'Sales Territory'[Sales Territory Country]="canada")
+
+
+ca sale & FRANCE = CALCULATE([TOTAL SALESAMOUNT],'Sales Territory'[Sales Territory Country]="canada" || 'Sales Territory'[Sales Territory Country]="FRANCE")
+
+
+ca sale & FRANCE = CALCULATE([TOTAL SALESAMOUNT],'Sales Territory'[Sales Territory Country] in {"canada", "france"}
+
+prior last year = CALCULATE([TOTAL SALESAMOUNT],SAMEPERIODLASTYEAR('Date'[Date]))
+
+
+
+
+
+
+
+
+
